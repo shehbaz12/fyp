@@ -1,0 +1,67 @@
+<div class="signup-card">
+    <div class="text-center">
+        <h2>Join the Network</h2>
+        <p class="subtext">Create your disaster response profile</p>
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+        <app-input-field label="Full Name" icon="person" placeholder="John Doe" [control]="getControl('name')">
+        </app-input-field>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-input-field label="Email Address" type="email" icon="email" placeholder="john@example.com"
+                [control]="getControl('email')">
+            </app-input-field>
+
+            <app-input-field label="Phone Number" type="tel" icon="phone" placeholder="+94 77 123 4567"
+                [control]="getControl('phone')">
+            </app-input-field>
+        </div>
+
+        <!-- Custom Role Select -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-neutral-600 mb-1">I want to join as a:</label>
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-select formControlName="role">
+                    <mat-option value="victim">
+                        <mat-icon class="mr-2 text-red-500">campaign</mat-icon> Affected Citizen (Request Help)
+                    </mat-option>
+                    <mat-option value="volunteer">
+                        <mat-icon class="mr-2 text-yellow-600">volunteer_activism</mat-icon> Field Volunteer
+                    </mat-option>
+                    <mat-option value="ngo">
+                        <mat-icon class="mr-2 text-cyan-600">handshake</mat-icon> NGO Representative
+                    </mat-option>
+                </mat-select>
+                <mat-icon matPrefix class="mr-2 text-neutral-400">badge</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <app-input-field label="Password" type="password" icon="lock" [control]="getControl('password')">
+        </app-input-field>
+
+        <app-input-field label="Confirm Password" type="password" icon="lock_reset"
+            [control]="getControl('confirmPassword')">
+        </app-input-field>
+
+        <mat-error *ngIf="signupForm.errors?.['mismatch'] && getControl('confirmPassword').touched"
+            class="text-red-500 text-xs mb-4 block animate-pulse">
+            <mat-icon class="align-middle text-sm">error</mat-icon> Passwords do not match
+        </mat-error>
+
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate" class="mb-4 rounded-full"></mat-progress-bar>
+
+        <button mat-flat-button color="primary"
+            class="w-full py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 bg-blue-600 hover:bg-blue-700 hover:-translate-y-0.5"
+            [disabled]="signupForm.invalid || isLoading">
+            Create Account
+        </button>
+
+        <div class="mt-6 text-center text-sm text-neutral-600">
+            Already have an account?
+            <a routerLink="/auth/login">Log In</a>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,62 @@
+<div class="overview-container">
+    <!-- Welcome Header -->
+    <div class="welcome-section" *ngIf="profile$ | async as profile">
+        <div class="text-content">
+            <h1>Welcome, {{ profile?.name || profile?.id }}</h1>
+            <p>We are here to help you recover. Navigate to 'My Requests' to ask for aid.</p>
+        </div>
+        <button mat-flat-button color="warn" (click)="requestHelp()">
+            <mat-icon>volunteer_activism</mat-icon> Request Aid Now
+        </button>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="stats-grid">
+        <mat-card class="stat-card">
+            <div class="stat-icon blue">
+                <mat-icon>pending_actions</mat-icon>
+            </div>
+            <div class="stat-info">
+                <span class="value">{{ activeRequestsCount$ | async }}</span>
+                <span class="label">Active Requests</span>
+            </div>
+        </mat-card>
+
+        <mat-card class="stat-card">
+            <div class="stat-icon green">
+                <mat-icon>check_circle</mat-icon>
+            </div>
+            <div class="stat-info">
+                <span class="value">{{ fulfilledRequestsCount$ | async }}</span>
+                <span class="label">Aid Received</span>
+            </div>
+        </mat-card>
+    </div>
+
+    <!-- Quick Actions Grid -->
+    <div class="actions-grid">
+        <mat-card class="action-card" routerLink="/dashboard/victim/requests">
+            <mat-card-header>
+                <mat-icon mat-card-avatar color="primary">medical_services</mat-icon>
+                <mat-card-title>Manage Requests</mat-card-title>
+                <mat-card-subtitle>Track existing or create new</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+
+        <mat-card class="action-card" routerLink="/dashboard/victim/points">
+            <mat-card-header>
+                <mat-icon mat-card-avatar color="accent">place</mat-icon>
+                <mat-card-title>Find Aid Points</mat-card-title>
+                <mat-card-subtitle>Locate nearby distribution centers</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+
+        <mat-card class="action-card" routerLink="/dashboard/victim/history">
+            <mat-card-header>
+                <mat-icon mat-card-avatar>history</mat-icon>
+                <mat-card-title>Aid History</mat-card-title>
+                <mat-card-subtitle>View past distributions</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+    </div>
+</div>

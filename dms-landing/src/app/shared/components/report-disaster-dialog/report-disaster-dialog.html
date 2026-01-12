@@ -1,0 +1,98 @@
+<form [formGroup]="reportForm" (ngSubmit)="onSubmit()" class="flex flex-col h-full max-h-[85vh]">
+
+    <div class="dialog-header pt-4 pb-2 px-6">
+        <h2 class="dialog-title text-red-700">
+            <mat-icon class="text-red-600 mr-2">report_problem</mat-icon>
+            Report a Disaster
+        </h2>
+        <p class="dialog-subtitle">Alert the authorities and response teams immediately.</p>
+    </div>
+
+    <mat-dialog-content class="!flex-1">
+
+        <!-- Location (Critical) -->
+        <mat-form-field appearance="outline" class="w-full mt-2">
+            <mat-label>Location of Incident</mat-label>
+            <input matInput formControlName="location" placeholder="e.g., Highway A1, Near Bridge" required>
+            <mat-icon matSuffix class="text-neutral-400">add_location</mat-icon>
+            <mat-error *ngIf="reportForm.get('location')?.hasError('required')">Location is required.</mat-error>
+        </mat-form-field>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Disaster Type -->
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Type of Disaster</mat-label>
+                <mat-select formControlName="disasterType" required>
+                    <mat-option value="flood">🌊 Flood</mat-option>
+                    <mat-option value="fire">🔥 Fire</mat-option>
+                    <mat-option value="earthquake">🏚️ Earthquake</mat-option>
+                    <mat-option value="landslide">⛰️ Landslide</mat-option>
+                    <mat-option value="cyclone">🌪️ Cyclone</mat-option>
+                    <mat-option value="accident">🚑 Major Accident</mat-option>
+                    <mat-option value="other">❓ Other</mat-option>
+                </mat-select>
+                <mat-error *ngIf="reportForm.get('disasterType')?.hasError('required')">Required</mat-error>
+            </mat-form-field>
+
+            <!-- People Affected -->
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Est. People Affected (Optional)</mat-label>
+                <input matInput type="number" formControlName="peopleAffected" min="0">
+                <mat-icon matPrefix class="mr-2 text-neutral-400">groups</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <!-- Severity -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-neutral-700 mb-2">Severity / Urgency *</label>
+            <mat-radio-group formControlName="severity" class="severity-group">
+                <mat-radio-button value="low" class="mr-4 text-green-700">Low</mat-radio-button>
+                <mat-radio-button value="medium" class="mr-4 text-yellow-700">Medium</mat-radio-button>
+                <mat-radio-button value="high" class="mr-4 text-orange-700">High</mat-radio-button>
+                <mat-radio-button value="critical" class="text-red-700 font-bold">Critical</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <!-- Immediate Needs -->
+        <div class="mb-4 p-3 bg-neutral-50 rounded-lg border border-neutral-200" formGroupName="needs">
+            <label class="block text-sm font-medium text-neutral-700 mb-2">Immediate Needs Observed (Optional)</label>
+            <div class="grid grid-cols-2 gap-2">
+                <mat-checkbox formControlName="food">Food / Water</mat-checkbox>
+                <mat-checkbox formControlName="medical">Medical Aid</mat-checkbox>
+                <mat-checkbox formControlName="shelter">Shelter</mat-checkbox>
+                <mat-checkbox formControlName="rescue">Search & Rescue</mat-checkbox>
+                <mat-checkbox formControlName="other">Other</mat-checkbox>
+            </div>
+        </div>
+
+        <!-- Comments -->
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Additional Details / Description</mat-label>
+            <textarea matInput formControlName="comments" rows="3" placeholder="Describe the situation..."></textarea>
+        </mat-form-field>
+
+        <!-- Contact Info (Optional) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Your Name (Optional)</mat-label>
+                <input matInput formControlName="contactName">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Phone (Optional)</mat-label>
+                <input matInput formControlName="contactPhone" type="tel">
+            </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+
+    <!-- Actions -->
+    <mat-dialog-actions align="end" class="!px-6 !pb-6 border-t border-neutral-100 bg-white z-10">
+        <button type="button" mat-button (click)="onCancel()" class="cancel-btn">Cancel</button>
+        <button type="submit" mat-flat-button color="warn" class="submit-btn"
+            [disabled]="reportForm.invalid || isSubmitting">
+            <span *ngIf="!isSubmitting">SUBMIT REPORT</span>
+            <span *ngIf="isSubmitting">Submitting...</span>
+        </button>
+    </mat-dialog-actions>
+
+</form>

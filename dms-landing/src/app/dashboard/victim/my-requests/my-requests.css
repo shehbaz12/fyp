@@ -1,0 +1,210 @@
+.requests-page {
+    padding: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-header {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-header h1 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin: 0;
+}
+
+.subtitle {
+    color: #64748b;
+    margin: 4px 0 0 0;
+}
+
+/* Request Card Styles */
+.requests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 16px;
+}
+
+.request-card {
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.req-type h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #1e293b;
+}
+
+.urgency-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.urgency-badge.critical {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.urgency-badge.medium {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.urgency-badge.low {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.date {
+    font-size: 0.875rem;
+    color: #94a3b8;
+}
+
+/* Pipeline Status */
+.status-section {
+    margin: 16px 0;
+}
+
+.status-section h4 {
+    margin: 0 0 12px 0;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stage {
+    font-size: 0.8rem;
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+.stage.active {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+.line {
+    flex: 1;
+    height: 2px;
+    background: #e2e8f0;
+    margin: 0 8px;
+}
+
+.line.active {
+    background: #3b82f6;
+}
+
+/* Allocation Box */
+.allocation-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.box-row {
+    display: flex;
+    gap: 12px;
+}
+
+.box-row .icon {
+    color: #3b82f6;
+}
+
+.label {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.box-row p {
+    margin: 2px 0 0 0;
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.text-red-500 {
+    color: #ef4444;
+}
+
+/* Form Styles */
+.form-card {
+    margin-top: 16px;
+    padding: 24px;
+    border-radius: 12px;
+}
+
+.form-desc {
+    color: #64748b;
+    margin-bottom: 24px;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.urgency-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.urgency-selector label {
+    color: #64748b;
+    font-weight: 500;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-actions {
+    margin-top: 32px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 48px;
+    color: #94a3b8;
+}
+
+.empty-state mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+}

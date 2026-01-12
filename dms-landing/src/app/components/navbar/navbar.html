@@ -1,0 +1,35 @@
+<mat-toolbar
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md bg-white/90 text-blue-900 border-b border-blue-100 shadow-sm">
+  <div class="container mx-auto flex items-center justify-between px-4">
+    <!-- Logo -->
+    <a routerLink="/" class="flex items-center gap-2 no-underline text-blue-900 hover:opacity-80 transition-opacity">
+      <div class="w-8 h-8 rounded bg-blue-600 flex items-center justify-center text-white font-bold">D</div>
+      <span class="font-bold text-xl tracking-tight">Disaster Management System</span>
+    </a>
+
+    <span class="flex-spacer hidden md:block flex-1"></span>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center gap-4">
+      <a mat-button href="#about" class="text-slate-600 hover:text-blue-600 font-medium">About</a>
+      <a mat-button href="#contact" class="text-slate-600 hover:text-blue-600 font-medium">Contact</a>
+
+      <div class="w-px h-6 bg-slate-200 mx-2"></div>
+
+      <button mat-button class="text-red-600 hover:bg-red-50 font-bold" (click)="openReportDialog()">
+        <mat-icon class="mr-1">warning</mat-icon>
+        Report Disaster
+      </button>
+
+      <a mat-raised-button color="primary"
+        class="!bg-blue-600 !text-white rounded-full px-6 shadow-md hover:!bg-blue-700" routerLink="/auth/login">
+        Login
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button mat-icon-button class="md:hidden text-blue-900">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

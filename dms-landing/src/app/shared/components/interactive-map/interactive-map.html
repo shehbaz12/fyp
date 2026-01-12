@@ -1,0 +1,80 @@
+<div class="map-container">
+    <!-- Control Panel -->
+    <div class="control-panel">
+        <div class="control-header">
+            <h2><mat-icon>map</mat-icon> Interactive Disaster Map</h2>
+            <button mat-icon-button (click)="resetFilters()" title="Reset Filters">
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <mat-form-field appearance="outline" class="filter-field">
+                <mat-label>Disaster Type</mat-label>
+                <mat-select [(ngModel)]="selectedDisasterType" (selectionChange)="applyFilters()">
+                    <mat-option value="all">All Types</mat-option>
+                    <mat-option value="flood">🌊 Flood</mat-option>
+                    <mat-option value="fire">🔥 Fire</mat-option>
+                    <mat-option value="earthquake">🏚️ Earthquake</mat-option>
+                    <mat-option value="landslide">⛰️ Landslide</mat-option>
+                    <mat-option value="cyclone">🌪️ Cyclone</mat-option>
+                    <mat-option value="accident">🚑 Accident</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="filter-field">
+                <mat-label>Severity</mat-label>
+                <mat-select [(ngModel)]="selectedSeverity" (selectionChange)="applyFilters()">
+                    <mat-option value="all">All Levels</mat-option>
+                    <mat-option value="low">🟢 Low</mat-option>
+                    <mat-option value="medium">🟡 Medium</mat-option>
+                    <mat-option value="high">🟠 High</mat-option>
+                    <mat-option value="critical">🔴 Critical</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <h3>Legend</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="legend-marker" style="background-color: #3b82f6;"></span>
+                    <span>Flood</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-marker" style="background-color: #ef4444;"></span>
+                    <span>Fire</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-marker" style="background-color: #f97316;"></span>
+                    <span>Earthquake</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-marker" style="background-color: #92400e;"></span>
+                    <span>Landslide</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-marker" style="background-color: #a855f7;"></span>
+                    <span>Cyclone</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button mat-raised-button color="warn" (click)="openReportDialog()" class="report-btn">
+                <mat-icon>report_problem</mat-icon>
+                Report Disaster
+            </button>
+            <button mat-stroked-button (click)="locateMe()" class="locate-btn">
+                <mat-icon>my_location</mat-icon>
+                Locate Me
+            </button>
+        </div>
+    </div>
+
+    <!-- Map -->
+    <div id="map" class="map"></div>
+</div>

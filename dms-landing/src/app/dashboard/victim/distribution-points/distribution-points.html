@@ -1,0 +1,38 @@
+<div class="points-page">
+    <div class="page-header">
+        <h1>Nearby Distribution Points</h1>
+        <p class="subtitle">Find active relief camps and medical units near you.</p>
+    </div>
+
+    <div class="points-grid">
+        <mat-card *ngFor="let point of points$ | async" class="point-card">
+            <mat-card-header>
+                <div mat-card-avatar class="point-avatar">
+                    <mat-icon>location_on</mat-icon>
+                </div>
+                <mat-card-title>{{ point.name }}</mat-card-title>
+                <mat-card-subtitle>{{ point.location }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+                <div class="info-row">
+                    <mat-icon>schedule</mat-icon>
+                    <span>{{ point.hours }}</span>
+                </div>
+
+                <div class="active-ngos">
+                    <span class="label">Active NGOs:</span>
+                    <mat-chip-set>
+                        <mat-chip *ngFor="let ngo of point.activeNGOs">{{ ngo }}</mat-chip>
+                    </mat-chip-set>
+                </div>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+                <button mat-stroked-button color="primary" (click)="getDirections(point)">
+                    <mat-icon>directions</mat-icon> Get Directions
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

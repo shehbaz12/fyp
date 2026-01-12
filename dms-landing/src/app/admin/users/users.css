@@ -1,0 +1,219 @@
+/* Users Container */
+.users-container {
+    padding: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Page Header */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header-left {
+    flex: 1;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 0.5rem 0;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Filters Section */
+.filters-section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.filter-field {
+    min-width: 200px;
+}
+
+.results-count {
+    margin-left: auto;
+    color: #64748b;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 0;
+    color: #64748b;
+}
+
+.loading-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Table Container */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.users-table {
+    width: 100%;
+}
+
+/* Table Styling */
+:host ::ng-deep .mat-mdc-table {
+    background: white;
+}
+
+:host ::ng-deep .mat-mdc-header-row {
+    background: #f8fafc;
+}
+
+:host ::ng-deep .mat-mdc-header-cell {
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+:host ::ng-deep .mat-mdc-row {
+    transition: background-color 0.2s;
+}
+
+:host ::ng-deep .mat-mdc-row:hover {
+    background-color: #f8fafc;
+}
+
+:host ::ng-deep .mat-mdc-cell {
+    padding: 1rem 0.75rem;
+    color: #1e293b;
+}
+
+/* User Info */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-avatar-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: #60a5fa;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.user-region {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* Chips */
+:host ::ng-deep .mat-mdc-chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    min-height: 28px;
+}
+
+.status-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+
+/* Last Active */
+.last-active {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    color: #94a3b8;
+}
+
+.empty-state mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filters-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-field {
+        width: 100%;
+    }
+
+    .results-count {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    /* Hide some columns on mobile */
+    :host ::ng-deep .mat-column-joinedDate,
+    :host ::ng-deep .mat-column-lastActive {
+        display: none;
+    }
+}

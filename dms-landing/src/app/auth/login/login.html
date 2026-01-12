@@ -1,0 +1,37 @@
+<div class="login-card">
+    <div class="text-center">
+        <h2>Welcome Back</h2>
+        <p class="subtext">Secure Access Portal</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <app-input-field label="Email Address" type="email" icon="email" placeholder="admin@gov.lk"
+            [control]="emailControl">
+        </app-input-field>
+
+        <app-input-field label="Password" type="password" icon="lock" placeholder="••••••••"
+            [control]="passwordControl">
+        </app-input-field>
+
+        <div class="flex justify-end mb-6">
+            <a routerLink="/auth/forgot-password" class="text-sm">
+                Forgot Password?
+            </a>
+        </div>
+
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate" class="mb-4 rounded-full"></mat-progress-bar>
+
+        <button mat-flat-button color="primary"
+            class="w-full py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 bg-blue-600 hover:bg-blue-700 hover:-translate-y-0.5"
+            [disabled]="loginForm.invalid || isLoading">
+            Access Dashboard
+        </button>
+
+        <div class="mt-6 text-center text-sm text-neutral-600">
+            Don't have an account?
+            <a routerLink="/auth/signup">Sign Up</a>
+        </div>
+
+    </form>
+</div>

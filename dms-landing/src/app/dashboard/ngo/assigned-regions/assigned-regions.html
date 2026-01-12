@@ -1,0 +1,47 @@
+<div class="regions-page">
+    <div class="page-header">
+        <h1>Assigned Regions</h1>
+        <p class="subtitle">Disaster regions currently assigned to your organization</p>
+    </div>
+
+    <div class="regions-grid">
+        <mat-card class="region-card" *ngFor="let region of regions$ | async">
+            <div class="card-header">
+                <div class="icon-box" [class]="region.disasterType | lowercase">
+                    <mat-icon *ngIf="region.disasterType === 'Flood'">water_drop</mat-icon>
+                    <mat-icon *ngIf="region.disasterType === 'Earthquake'">landscape</mat-icon>
+                    <mat-icon *ngIf="region.disasterType === 'Fire'">local_fire_department</mat-icon>
+                </div>
+                <div class="status-chip" [class.active]="region.status === 'Active'">
+                    {{ region.status }}
+                </div>
+            </div>
+
+            <mat-card-header>
+                <mat-card-title>{{ region.name }}</mat-card-title>
+                <mat-card-subtitle>{{ region.location }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+                <div class="detail-row">
+                    <mat-icon>groups</mat-icon>
+                    <span>{{ region.population }} Affected</span>
+                </div>
+                <div class="resources-section">
+                    <span class="label">Required Resources:</span>
+                    <mat-chip-set>
+                        <mat-chip *ngFor="let res of region.requiredResources.split(',')">
+                            {{ res.trim() }}
+                        </mat-chip>
+                    </mat-chip-set>
+                </div>
+            </mat-card-content>
+
+            <mat-divider></mat-divider>
+
+            <mat-card-actions>
+                <button mat-stroked-button color="primary" (click)="openDetails(region)">View Details</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

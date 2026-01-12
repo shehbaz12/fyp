@@ -1,0 +1,18 @@
+<div class="py-20 bg-slate-50 text-slate-900 relative z-20">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center text-blue-900">Frequently Asked Questions</h2>
+
+        <mat-accordion multi>
+            <mat-expansion-panel *ngFor="let faq of faqs" class="mb-4 !rounded-xl overflow-hidden !bg-white !shadow-sm">
+                <mat-expansion-panel-header class="py-6">
+                    <mat-panel-title class="text-lg font-bold text-slate-800">
+                        {{faq.q}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="text-slate-600 py-4 text-lg">
+                    {{faq.a}}
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

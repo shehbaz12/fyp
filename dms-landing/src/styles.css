@@ -1,0 +1,144 @@
+/* Global Styles */
+@import 'leaflet/dist/leaflet.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', Roboto, "Helvetica Neue", sans-serif;
+  background-color: #eff6ff;
+  /* Blue 50 */
+  color: #0f172a;
+  /* Slate 900 */
+}
+
+/* Glass Dialog Panel Style */
+.glass-dialog .mat-mdc-dialog-container .mdc-dialog__surface {
+  background: rgba(255, 255, 255, 0.98);
+  /* Less transparent for professional look */
+  border-radius: 12px;
+  /* Tighter radius */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Material Override for Professional Look */
+
+/* Form Field Rounding */
+.mat-mdc-text-field-wrapper,
+.mdc-text-field {
+  border-radius: 8px !important;
+}
+
+/* Scoped White Background for Contact Form Inputs (Glass theme) */
+.glass .mat-mdc-text-field-wrapper,
+.glass .mdc-text-field,
+.glass .mdc-text-field--outlined {
+  background-color: #ffffff !important;
+}
+
+/* Scoped White Background for Dialog Inputs if needed */
+.glass-dialog .mat-mdc-text-field-wrapper {
+  background-color: #ffffff !important;
+}
+
+/* Remove the aggressive global border overrides that broke notched outlines */
+/* Only customize colors, do not touch structural border styles globally */
+.mdc-notched-outline__leading,
+.mdc-notched-outline__notch,
+.mdc-notched-outline__trailing {
+  border-color: #cbd5e1 !important;
+  /* Slate 300 */
+}
+
+/* Focus State Highlight */
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #2563eb !important;
+  /* Official Blue */
+  border-width: 2px !important;
+}
+
+/* Label Colors - Ensure visible on white */
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: #64748b !important;
+  /* Slate 500 */
+}
+
+.mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: #2563eb !important;
+  /* Official Blue */
+}
+
+/* Input Text Color */
+.mat-mdc-input-element {
+  color: #1e293b !important;
+  /* Slate 800 - High Contrast */
+  caret-color: #2563eb !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Glassmorphism Utility */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hide Material Subscript Spacer for tighter layout */
+.no-label-spacer .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+/* Custom Input Styling for Contact Form - Fill Appearance */
+.glass .mat-mdc-text-field-wrapper {
+  background-color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Remove the underline from fill appearance */
+.glass .mat-mdc-form-field-underline,
+.glass .mdc-line-ripple {
+  display: none !important;
+}
+
+/* Force dark text color for inputs inside the glass container */
+.glass .mat-mdc-input-element {
+  color: #000000 !important;
+  caret-color: #2563eb !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Ensure placeholder is visible but distinct */
+.glass .mat-mdc-input-element::placeholder {
+  color: #94a3b8 !important;
+  opacity: 1;
+}
+
+/* Add subtle focus effect with shadow instead */
+.glass .mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
+}

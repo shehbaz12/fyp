@@ -1,0 +1,277 @@
+/* Organizations Container */
+.organizations-container {
+    padding: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Page Header */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header-left {
+    flex: 1;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 0.5rem 0;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Filters Section */
+.filters-section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.filter-field {
+    min-width: 200px;
+}
+
+.results-count {
+    margin-left: auto;
+    color: #64748b;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 0;
+    color: #64748b;
+}
+
+.loading-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Table Container */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.organizations-table {
+    width: 100%;
+}
+
+/* Table Styling */
+:host ::ng-deep .mat-mdc-table {
+    background: white;
+}
+
+:host ::ng-deep .mat-mdc-header-row {
+    background: #f8fafc;
+}
+
+:host ::ng-deep .mat-mdc-header-cell {
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+:host ::ng-deep .mat-mdc-row {
+    transition: background-color 0.2s;
+}
+
+:host ::ng-deep .mat-mdc-row:hover {
+    background-color: #f8fafc;
+}
+
+:host ::ng-deep .mat-mdc-cell {
+    padding: 1rem 0.75rem;
+    color: #1e293b;
+}
+
+/* Organization Info */
+.org-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.org-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+    color: #3b82f6;
+}
+
+.org-name {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* Contact Info */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.contact-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #94a3b8;
+}
+
+/* Capacity Info */
+.capacity-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.capacity-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.capacity-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #94a3b8;
+}
+
+/* Workload */
+.workload-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.workload-bar {
+    flex: 1;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+    min-width: 80px;
+}
+
+.workload-fill {
+    height: 100%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    border-radius: 4px;
+}
+
+.workload-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    min-width: 40px;
+}
+
+/* Chips */
+:host ::ng-deep .mat-mdc-chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    min-height: 28px;
+}
+
+.status-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    color: #94a3b8;
+}
+
+.empty-state mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filters-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-field {
+        width: 100%;
+    }
+
+    .results-count {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    /* Hide some columns on mobile */
+    :host ::ng-deep .mat-column-contact,
+    :host ::ng-deep .mat-column-capacity,
+    :host ::ng-deep .mat-column-registeredDate {
+        display: none;
+    }
+}

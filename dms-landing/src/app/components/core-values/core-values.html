@@ -1,0 +1,20 @@
+<div class="py-20 bg-blue-900 text-white relative z-20">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">Our Core Values</h2>
+        <p class="text-lg text-blue-200 mb-16">The principles that guide everything we do</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div *ngFor="let val of values"
+                class="bg-blue-950/40 border border-blue-800 p-10 rounded-xl hover:border-cyan-500/50 transition-colors duration-300">
+
+                <div
+                    class="w-16 h-16 rounded-full bg-blue-800/50 flex items-center justify-center mx-auto mb-6 text-cyan-400">
+                    <mat-icon class="scale-150">{{val.icon}}</mat-icon>
+                </div>
+
+                <h3 class="text-xl font-bold mb-4 text-white">{{val.title}}</h3>
+                <p class="text-blue-200 leading-relaxed">{{val.desc}}</p>
+            </div>
+        </div>
+    </div>
+</div>

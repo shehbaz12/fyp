@@ -1,0 +1,126 @@
+<div class="monitoring-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="header-left">
+            <h1 class="page-title">Assignment Monitoring</h1>
+            <p class="page-subtitle">Track region assignments and relief progress</p>
+        </div>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="filters-section">
+        <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Filter by Status</mat-label>
+            <mat-select [(ngModel)]="selectedStatus" (selectionChange)="applyFilters()">
+                <mat-option value="all">All Status</mat-option>
+                <mat-option value="assigned">Assigned</mat-option>
+                <mat-option value="in-progress">In Progress</mat-option>
+                <mat-option value="completed">Completed</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="results-count">
+            <span>Showing {{ filteredAssignments.length }} of {{ assignments.length }} assignments</span>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+        <mat-icon class="loading-icon">hourglass_empty</mat-icon>
+        <p>Loading assignments...</p>
+    </div>
+
+    <!-- Assignments Table -->
+    <div *ngIf="!loading" class="table-container">
+        <table mat-table [dataSource]="filteredAssignments" class="assignments-table">
+
+            <!-- Disaster Column -->
+            <ng-container matColumnDef="disaster">
+                <th mat-header-cell *matHeaderCellDef>Disaster</th>
+                <td mat-cell *matCellDef="let assignment">
+                    <div class="disaster-info">
+                        <mat-icon class="disaster-icon">warning</mat-icon>
+                        <span class="disaster-name">{{ assignment.disasterName }}</span>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Region Column -->
+            <ng-container matColumnDef="region">
+                <th mat-header-cell *matHeaderCellDef>Region</th>
+                <td mat-cell *matCellDef="let assignment">
+                    <div class="region-info">
+                        <mat-icon class="region-icon">location_on</mat-icon>
+                        <span>{{ assignment.region }}</span>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- NGOs Column -->
+            <ng-container matColumnDef="ngos">
+                <th mat-header-cell *matHeaderCellDef>Assigned NGO(s)</th>
+                <td mat-cell *matCellDef="let assignment">
+                    <div class="ngos-list">
+                        <mat-chip *ngFor="let ngoId of assignment.assignedNGOs" class="ngo-chip">
+                            {{ adminService.getOrganizationById(ngoId)?.name || 'Unknown' }}
+                        </mat-chip>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Coverage Column -->
+            <ng-container matColumnDef="coverage">
+                <th mat-header-cell *matHeaderCellDef>Resource Coverage</th>
+                <td mat-cell *matCellDef="let assignment">
+                    <div class="coverage-container">
+                        <div class="coverage-bar">
+                            <div class="coverage-fill" [style.width.%]="assignment.resourceCoverage"
+                                [style.background-color]="getCoverageColor(assignment.resourceCoverage)">
+                            </div>
+                        </div>
+                        <span class="coverage-text" [style.color]="getCoverageColor(assignment.resourceCoverage)">
+                            {{ assignment.resourceCoverage }}%
+                        </span>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Population Column -->
+            <ng-container matColumnDef="population">
+                <th mat-header-cell *matHeaderCellDef>Affected Population</th>
+                <td mat-cell *matCellDef="let assignment">
+                    <div class="population-info">
+                        <mat-icon class="pop-icon">people</mat-icon>
+                        <span>{{ assignment.affectedPopulation | number }}</span>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let assignment">
+                    <mat-chip [color]="getStatusColor(assignment.status)">
+                        <mat-icon class="status-icon">{{ getStatusIcon(assignment.status) }}</mat-icon>
+                        {{ assignment.status | uppercase }}
+                    </mat-chip>
+                </td>
+            </ng-container>
+
+            <!-- Assigned Date Column -->
+            <ng-container matColumnDef="assignedDate">
+                <th mat-header-cell *matHeaderCellDef>Assigned Date</th>
+                <td mat-cell *matCellDef="let assignment">{{ formatDate(assignment.assignedDate) }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <!-- Empty State -->
+        <div *ngIf="filteredAssignments.length === 0" class="empty-state">
+            <mat-icon>assignment</mat-icon>
+            <p>No assignments found matching your filters</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,130 @@
+<div class="disasters-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="header-left">
+            <h1 class="page-title">Disaster Management</h1>
+            <p class="page-subtitle">Monitor active and closed disasters (Read-Only)</p>
+        </div>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="filters-section">
+        <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Filter by Type</mat-label>
+            <mat-select [(ngModel)]="selectedType" (selectionChange)="applyFilters()">
+                <mat-option value="all">All Types</mat-option>
+                <mat-option value="flood">Flood</mat-option>
+                <mat-option value="fire">Fire</mat-option>
+                <mat-option value="earthquake">Earthquake</mat-option>
+                <mat-option value="landslide">Landslide</mat-option>
+                <mat-option value="cyclone">Cyclone</mat-option>
+                <mat-option value="accident">Accident</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Filter by Severity</mat-label>
+            <mat-select [(ngModel)]="selectedSeverity" (selectionChange)="applyFilters()">
+                <mat-option value="all">All Levels</mat-option>
+                <mat-option value="low">Low</mat-option>
+                <mat-option value="medium">Medium</mat-option>
+                <mat-option value="high">High</mat-option>
+                <mat-option value="critical">Critical</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Filter by Status</mat-label>
+            <mat-select [(ngModel)]="selectedStatus" (selectionChange)="applyFilters()">
+                <mat-option value="all">All Status</mat-option>
+                <mat-option value="active">Active</mat-option>
+                <mat-option value="closed">Closed</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="results-count">
+            <span>Showing {{ filteredDisasters.length }} of {{ disasters.length }} disasters</span>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+        <mat-icon class="loading-icon">hourglass_empty</mat-icon>
+        <p>Loading disasters...</p>
+    </div>
+
+    <!-- Disasters Grid -->
+    <div *ngIf="!loading" class="disasters-grid">
+        <mat-card *ngFor="let disaster of filteredDisasters" class="disaster-card">
+            <!-- Card Header -->
+            <div class="card-header" [style.background-color]="getDisasterColor(disaster.type)">
+                <mat-icon class="disaster-icon">{{ getDisasterIcon(disaster.type) }}</mat-icon>
+                <div class="header-info">
+                    <h3 class="disaster-name">{{ disaster.name }}</h3>
+                    <span class="disaster-type">{{ disaster.type | uppercase }}</span>
+                </div>
+            </div>
+
+            <!-- Card Content -->
+            <mat-card-content class="card-content">
+                <!-- Status & Severity -->
+                <div class="status-row">
+                    <mat-chip [color]="getSeverityColor(disaster.severity)">
+                        <mat-icon class="chip-icon">priority_high</mat-icon>
+                        {{ disaster.severity | uppercase }}
+                    </mat-chip>
+                    <mat-chip [color]="getStatusColor(disaster.status)">
+                        <mat-icon class="chip-icon">
+                            {{ disaster.status === 'active' ? 'emergency' : 'check_circle' }}
+                        </mat-icon>
+                        {{ disaster.status | uppercase }}
+                    </mat-chip>
+                </div>
+
+                <!-- Description -->
+                <p class="description">{{ disaster.description }}</p>
+
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <mat-icon class="stat-icon">people</mat-icon>
+                        <div class="stat-info">
+                            <span class="stat-label">Affected Population</span>
+                            <span class="stat-value">{{ disaster.affectedPopulation | number }}</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <mat-icon class="stat-icon">location_on</mat-icon>
+                        <div class="stat-info">
+                            <span class="stat-label">Affected Regions</span>
+                            <span class="stat-value">{{ disaster.affectedRegions.length }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regions -->
+                <div class="regions-section">
+                    <span class="regions-label">Regions:</span>
+                    <div class="regions-chips">
+                        <mat-chip *ngFor="let region of disaster.affectedRegions" class="region-chip">
+                            {{ region }}
+                        </mat-chip>
+                    </div>
+                </div>
+
+                <!-- Reported Date -->
+                <div class="footer-info">
+                    <mat-icon class="footer-icon">schedule</mat-icon>
+                    <span class="footer-text">Reported: {{ formatDate(disaster.reportedDate) }}</span>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && filteredDisasters.length === 0" class="empty-state">
+        <mat-icon>warning_amber</mat-icon>
+        <p>No disasters found matching your filters</p>
+    </div>
+</div>

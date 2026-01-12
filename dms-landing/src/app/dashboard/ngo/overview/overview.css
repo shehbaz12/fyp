@@ -1,0 +1,102 @@
+.ngo-overview {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 24px;
+    color: #1e293b;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    padding: 24px !important;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    border-radius: 12px;
+}
+
+.stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-content .value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.stat-content .label {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+/* Colors */
+.stat-card.blue .stat-icon {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.stat-card.green .stat-icon {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.stat-card.orange .stat-icon {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
+.stat-card.purple .stat-icon {
+    background: #f3e8ff;
+    color: #9333ea;
+}
+
+/* Activity Section */
+.activity-section h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: #334155;
+}
+
+.table-card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.view-all {
+    padding: 16px;
+    text-align: right;
+    border-top: 1px solid #e2e8f0;
+}

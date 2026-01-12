@@ -1,0 +1,70 @@
+<div class="requests-page">
+    <div class="page-header">
+        <div>
+            <h1>My Aid Requests</h1>
+            <p class="subtitle">Manage your aid requests and track their status.</p>
+        </div>
+        <button mat-flat-button color="warn" (click)="openRequestDialog()">
+            <mat-icon class="mr-2">add_alert</mat-icon> Request New Aid
+        </button>
+    </div>
+
+    <!-- Active Requests List -->
+    <div class="requests-list">
+        <div *ngIf="(requests$ | async)?.length === 0" class="empty-state">
+            <mat-icon>inbox</mat-icon>
+            <p>No active requests found.</p>
+        </div>
+
+        <mat-card *ngFor="let req of requests$ | async" class="request-card">
+            <div class="card-header-row">
+                <div class="req-type">
+                    <h3>{{ req.type }} Aid</h3>
+                    <span class="urgency-badge" [class]="req.urgency.toLowerCase()">{{ req.urgency }} Priority</span>
+                </div>
+                <span class="date">{{ req.createdAt | date:'short' }}</span>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="status-section">
+                <h4>Status Check</h4>
+                <!-- Simple Progress Indicator -->
+                <div class="pipeline">
+                    <div class="stage" [class.active]="getStatusStep(req.status) >= 0">Submitted</div>
+                    <div class="line" [class.active]="getStatusStep(req.status) >= 1"></div>
+                    <div class="stage" [class.active]="getStatusStep(req.status) >= 1">Approved</div>
+                    <div class="line" [class.active]="getStatusStep(req.status) >= 2"></div>
+                    <div class="stage" [class.active]="getStatusStep(req.status) >= 2">Ready</div>
+                    <div class="line" [class.active]="getStatusStep(req.status) >= 3"></div>
+                    <div class="stage" [class.active]="getStatusStep(req.status) >= 3">Fulfilled</div>
+                </div>
+            </div>
+
+            <!-- Post-Allocation Details -->
+            <div *ngIf="req.allocatedNGO" class="allocation-box">
+                <div class="box-row">
+                    <mat-icon class="icon">business</mat-icon>
+                    <div>
+                        <span class="label">Assigned NGO</span>
+                        <p>{{ req.allocatedNGO }}</p>
+                    </div>
+                </div>
+                <div class="box-row" *ngIf="req.allocatedPoint">
+                    <mat-icon class="icon">location_on</mat-icon>
+                    <div>
+                        <span class="label">Collection Point</span>
+                        <p>{{ req.allocatedPoint }}</p>
+                    </div>
+                </div>
+                <div class="box-row" *ngIf="req.validUntil">
+                    <mat-icon class="icon">timer</mat-icon>
+                    <div>
+                        <span class="label">Valid Until</span>
+                        <p class="text-red-500">{{ req.validUntil | date:'medium' }}</p>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+.logs-page {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin: 0;
+}
+
+.table-card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.distributor-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #475569;
+}
+
+.distributor-info mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}

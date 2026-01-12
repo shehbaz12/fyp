@@ -1,0 +1,119 @@
+.region-page {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    margin: 0;
+    color: #1e293b;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-top: 4px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Map Card */
+.map-card {
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+/* Map Container - Replaces Placeholder */
+.map-container {
+    height: 300px;
+    width: 100%;
+    background: #e2e8f0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Custom Pin Style */
+.custom-pin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.location-details {
+    padding: 24px;
+}
+
+.location-details h2 {
+    margin: 0 0 8px 0;
+    color: #1e293b;
+    font-size: 1.5rem;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+}
+
+/* Side Info Cards */
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.info-card {
+    background: #fff;
+}
+
+.info-card mat-card-avatar {
+    color: #3b82f6;
+    background: #eff6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.info-card h3 {
+    margin: 8px 0 4px 0;
+    font-size: 1.1rem;
+    color: #1e293b;
+}
+
+.contact-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #64748b;
+}
+
+.small {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.text-muted {
+    font-size: 0.9rem;
+    color: #64748b;
+}

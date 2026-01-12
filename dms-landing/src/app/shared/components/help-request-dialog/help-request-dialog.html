@@ -1,0 +1,100 @@
+<form [formGroup]="helpForm" (ngSubmit)="onSubmit()" class="flex flex-col h-full max-h-[85vh]">
+
+    <div class="dialog-header pt-4 pb-2 px-6">
+        <h2 class="dialog-title">
+            <mat-icon class="text-red-600 mr-2">sos</mat-icon>
+            Request Immediate Help
+        </h2>
+        <p class="dialog-subtitle">Specify what you need. Responders will get exact details.</p>
+    </div>
+
+    <mat-dialog-content class="!flex-1">
+
+        <!-- Location (Critical) -->
+        <mat-form-field appearance="outline" class="w-full mt-2">
+            <mat-label>Current Location / Address</mat-label>
+            <input matInput formControlName="location" placeholder="e.g., 123 Main St, Sector 4" required>
+            <mat-icon matSuffix class="text-neutral-400">my_location</mat-icon>
+            <mat-error *ngIf="helpForm.get('location')?.hasError('required')">Location is crucial for
+                rescue.</mat-error>
+        </mat-form-field>
+
+        <!-- Dynamic Items List -->
+        <div class="items-section">
+            <div class="section-label">Items Needed</div>
+
+            <div formArrayName="items">
+                <div *ngFor="let item of items.controls; let i=index" [formGroupName]="i" class="item-row fade-in">
+
+                    <!-- Category -->
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>Category</mat-label>
+                        <mat-select formControlName="category" required>
+                            <mat-option value="medical">🚑 Medical</mat-option>
+                            <mat-option value="food">🍲 Food/Water</mat-option>
+                            <mat-option value="shelter">⛺ Shelter/Tents</mat-option>
+                            <mat-option value="clothing">👕 Clothing</mat-option>
+                            <mat-option value="rescue">🚁 Rescue</mat-option>
+                            <mat-option value="other">❓ Other</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <!-- Quantity / Description -->
+                    <mat-form-field appearance="outline" class="flex-[1.5]">
+                        <mat-label>Quantity / Details</mat-label>
+                        <input matInput formControlName="quantity" placeholder="e.g. 5kg Rice, 2 Adults" required>
+                    </mat-form-field>
+
+                    <!-- Remove Button -->
+                    <button type="button" mat-icon-button color="warn" (click)="removeItem(i)" *ngIf="items.length > 1"
+                        title="Remove Item">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <button type="button" mat-stroked-button color="primary" (click)="addItem()" class="w-full dashed-btn">
+                <mat-icon class="mr-1">add_circle_outline</mat-icon> Add Another Item
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <!-- Urgency -->
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Urgency Level</mat-label>
+                <mat-select formControlName="urgency" required>
+                    <mat-option value="critical" class="text-red-600 font-bold">🔴 Critical</mat-option>
+                    <mat-option value="high" class="text-orange-600">🟠 High</mat-option>
+                    <mat-option value="medium" class="text-yellow-600">🟡 Medium</mat-option>
+                    <mat-option value="low" class="text-green-600">🟢 Low</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- People Count -->
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>People Affected</mat-label>
+                <input matInput type="number" formControlName="peopleCount" min="1" required>
+                <mat-icon matPrefix class="mr-2 text-neutral-400">group</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <!-- Additional Notes -->
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Additional Notes (Optional)</mat-label>
+            <textarea matInput formControlName="notes" rows="2"
+                placeholder="Any special needs or critical info..."></textarea>
+        </mat-form-field>
+
+    </mat-dialog-content>
+
+    <!-- Actions -->
+    <mat-dialog-actions align="end" class="!px-6 !pb-6 border-t border-neutral-100">
+        <button type="button" mat-button (click)="onCancel()" class="cancel-btn">Cancel</button>
+        <button type="submit" mat-flat-button color="primary" class="submit-btn"
+            [disabled]="helpForm.invalid || isSubmitting">
+            <span *ngIf="!isSubmitting">SEND REQUEST</span>
+            <span *ngIf="isSubmitting">Sending...</span>
+        </button>
+    </mat-dialog-actions>
+
+</form>

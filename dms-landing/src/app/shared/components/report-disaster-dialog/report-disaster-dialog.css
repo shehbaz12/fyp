@@ -1,0 +1,87 @@
+/* Dialog Layout */
+.dialog-header {
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.dialog-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #b91c1c;
+    /* Red-700 */
+    margin: 0 0 0.5rem 0;
+}
+
+.dialog-subtitle {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Severity Radio Group */
+.severity-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Buttons */
+.submit-btn {
+    background-color: #dc2626 !important;
+    /* Red-600 */
+    color: white !important;
+    border-radius: 12px !important;
+    padding: 1.2rem 2rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px;
+}
+
+.submit-btn:hover:not([disabled]) {
+    background-color: #b91c1c !important;
+    /* Red-700 */
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    transform: translateY(-1px);
+}
+
+.cancel-btn {
+    color: #6c757d !important;
+    font-weight: 500 !important;
+}
+
+.cancel-btn:hover {
+    background-color: #f8f9fa !important;
+}
+
+/* Checkbox Customization */
+.mat-mdc-checkbox-checked .mdc-checkbox__background {
+    background-color: #dc2626 !important;
+    /* Red accent */
+    border-color: #dc2626 !important;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+
+    /* Target Angular Material Actions */
+    mat-dialog-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .submit-btn,
+    .cancel-btn {
+        width: 100%;
+        margin: 0 !important;
+    }
+
+    .severity-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

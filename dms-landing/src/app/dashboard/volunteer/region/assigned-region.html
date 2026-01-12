@@ -1,0 +1,58 @@
+<div class="region-page">
+    <div class="page-header">
+        <h1>Assigned Region</h1>
+        <p class="subtitle">Your designated area of responsibility.</p>
+    </div>
+
+    <div class="content-grid">
+        <!-- Main Map / Location Card -->
+        <mat-card class="map-card">
+            <!-- Simulated Map Placeholder -->
+            <!-- Real Map Container -->
+            <!-- Real Map Container -->
+            <div id="region-map" class="map-container"></div>
+
+            <mat-card-content class="location-details">
+                <h2>{{ region.name }}</h2>
+                <div class="detail-row">
+                    <mat-icon>location_city</mat-icon>
+                    <span>{{ region.city }}</span>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Side Info: Supervisor & Reporting Point -->
+        <div class="side-panel">
+            <mat-card class="info-card">
+                <mat-card-header>
+                    <mat-icon mat-card-avatar>person</mat-icon>
+                    <mat-card-title>Field Supervisor</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <h3>{{ region.supervisor }}</h3>
+                    <p class="contact-row">
+                        <mat-icon class="small">phone</mat-icon> {{ region.contact }}
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-stroked-button color="primary" class="w-full">Call Supervisor</button>
+                </mat-card-actions>
+            </mat-card>
+
+            <mat-card class="info-card">
+                <mat-card-header>
+                    <mat-icon mat-card-avatar>flag</mat-icon>
+                    <mat-card-title>Reporting Point</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <h3>{{ region.reportingPoint }}</h3>
+                    <p class="text-muted">Please report here daily for briefing.</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-flat-button color="accent" class="w-full" (click)="getDirections()">Get
+                        Directions</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="ngo-overview">
+    <h1 class="page-title">Dashboard Overview</h1>
+
+    <div class="stats-grid">
+        <!-- Assigned Regions -->
+        <mat-card class="stat-card blue">
+            <div class="stat-icon">
+                <mat-icon>map</mat-icon>
+            </div>
+            <div class="stat-content">
+                <span class="value">{{ assignedRegionsCount$ | async }}</span>
+                <span class="label">Assigned Regions</span>
+            </div>
+        </mat-card>
+
+        <!-- Inventory -->
+        <mat-card class="stat-card green">
+            <div class="stat-icon">
+                <mat-icon>inventory_2</mat-icon>
+            </div>
+            <div class="stat-content">
+                <span class="value">{{ inventoryCount$ | async }}</span>
+                <span class="label">Total Items</span>
+            </div>
+        </mat-card>
+
+        <!-- Pending Requests -->
+        <mat-card class="stat-card orange">
+            <div class="stat-icon">
+                <mat-icon>medical_services</mat-icon>
+            </div>
+            <div class="stat-content">
+                <span class="value">{{ pendingRequestsCount$ | async }}</span>
+                <span class="label">Pending Requests</span>
+            </div>
+        </mat-card>
+
+        <!-- Active Volunteers -->
+        <mat-card class="stat-card purple">
+            <div class="stat-icon">
+                <mat-icon>groups</mat-icon>
+            </div>
+            <div class="stat-content">
+                <span class="value">{{ activeVolunteers$ | async }}</span>
+                <span class="label">Active Volunteers</span>
+            </div>
+        </mat-card>
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="activity-section">
+        <h2>Recent Distributions</h2>
+        <mat-card class="table-card">
+            <table mat-table [dataSource]="recentLogs$" class="w-full">
+                <!-- Time Column -->
+                <ng-container matColumnDef="time">
+                    <th mat-header-cell *matHeaderCellDef> Time </th>
+                    <td mat-cell *matCellDef="let log"> {{ log.timestamp | date:'short' }} </td>
+                </ng-container>
+
+                <!-- Region Column -->
+                <ng-container matColumnDef="region">
+                    <th mat-header-cell *matHeaderCellDef> Region </th>
+                    <td mat-cell *matCellDef="let log"> {{ log.region }} </td>
+                </ng-container>
+
+                <!-- Items Column -->
+                <ng-container matColumnDef="items">
+                    <th mat-header-cell *matHeaderCellDef> Items </th>
+                    <td mat-cell *matCellDef="let log"> {{ log.items.join(', ') }} </td>
+                </ng-container>
+
+                <!-- Volunteer Column -->
+                <ng-container matColumnDef="volunteer">
+                    <th mat-header-cell *matHeaderCellDef> Distributed By </th>
+                    <td mat-cell *matCellDef="let log"> {{ log.distributedBy }} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <div class="view-all">
+                <button mat-button color="primary" routerLink="/dashboard/ngo/logs">View Full History</button>
+            </div>
+        </mat-card>
+    </div>
+</div>

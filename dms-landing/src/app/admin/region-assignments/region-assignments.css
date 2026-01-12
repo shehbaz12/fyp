@@ -1,0 +1,351 @@
+/* Region Assignments Container */
+.region-assignments-container {
+    padding: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 0.5rem 0;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 0;
+    color: #64748b;
+}
+
+.loading-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Stepper */
+.assignment-stepper {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+/* Step Content */
+.step-content {
+    padding: 2rem 0;
+}
+
+.step-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 1.5rem 0;
+}
+
+.full-width {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Disaster Info */
+.disaster-info {
+    margin-top: 1.5rem;
+}
+
+.disaster-info h4 {
+    margin: 0 0 0.5rem 0;
+    color: #1e293b;
+}
+
+.disaster-info p {
+    color: #64748b;
+    margin: 0 0 1rem 0;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #64748b;
+}
+
+.info-item mat-icon {
+    color: #3b82f6;
+}
+
+/* Region Info */
+.region-info {
+    margin-top: 1.5rem;
+}
+
+.region-info h4 {
+    margin: 0 0 1rem 0;
+    color: #1e293b;
+}
+
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.requirement-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.req-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.req-icon.food {
+    color: #10b981;
+}
+
+.req-icon.medical {
+    color: #ef4444;
+}
+
+.req-icon.shelter {
+    color: #3b82f6;
+}
+
+.req-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.req-label {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.req-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.population-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #eff6ff;
+    border-radius: 8px;
+    color: #1e40af;
+    font-weight: 500;
+}
+
+/* NGOs Grid */
+.ngos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.ngo-card {
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+}
+
+.ngo-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+}
+
+.ngo-card.selected {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.ngo-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.ngo-header h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #1e293b;
+}
+
+.ngo-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.stat mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+/* Capacity Match */
+.capacity-match {
+    margin-bottom: 0.75rem;
+}
+
+.match-label {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.match-bar {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.25rem;
+}
+
+.match-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.match-value {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.workload-info {
+    padding-top: 0.75rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.workload-label {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* Assignment Summary */
+.assignment-summary {
+    margin-bottom: 1.5rem;
+}
+
+.summary-card {
+    background: #f0fdf4 !important;
+    border: 1px solid #86efac;
+}
+
+.summary-card h4 {
+    margin: 0 0 1rem 0;
+    color: #166534;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
+}
+
+.summary-item strong {
+    font-size: 1.125rem;
+}
+
+/* No NGOs */
+.no-ngos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    color: #94a3b8;
+}
+
+.no-ngos mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.5rem;
+}
+
+/* Step Actions */
+.step-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .requirements-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ngos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,205 @@
+<div class="edit-profile-container">
+    <div class="dialog-header">
+        <h2>Edit Profile</h2>
+        <button mat-icon-button (click)="close()"><mat-icon>close</mat-icon></button>
+    </div>
+
+    <!-- Top Summary Card (Read-only quick view) -->
+    <div class="summary-card">
+        <div class="avatar-circle">
+            <mat-icon>person</mat-icon>
+        </div>
+        <div class="user-meta">
+            <h3>{{ data.user.name }}</h3>
+            <span class="role-badge" [ngClass]="role">{{ role | titlecase }}</span>
+            <p class="id-text">ID: {{ data.user.id || 'N/A' }}</p>
+        </div>
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="save()">
+        <mat-tab-group animationDuration="0ms">
+
+            <!-- TAB 1: Personal / General Info -->
+            <mat-tab label="General Info">
+                <div class="tab-content">
+
+                    <!-- ADMIN -->
+                    <ng-container *ngIf="role === 'admin'">
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Full Name</mat-label>
+                            <input matInput formControlName="fullName">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Email Address</mat-label>
+                            <input matInput formControlName="email">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Phone Number</mat-label>
+                            <input matInput formControlName="phone">
+                        </mat-form-field>
+                    </ng-container>
+
+                    <!-- NGO -->
+                    <ng-container *ngIf="role === 'ngo'">
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Organization Name</mat-label>
+                            <input matInput formControlName="orgName">
+                        </mat-form-field>
+                        <div class="row">
+                            <mat-form-field appearance="outline" class="half">
+                                <mat-label>Contact Email</mat-label>
+                                <input matInput formControlName="email">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="half">
+                                <mat-label>Main Phone</mat-label>
+                                <input matInput formControlName="phone">
+                            </mat-form-field>
+                        </div>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Office Address</mat-label>
+                            <textarea matInput formControlName="address" rows="2"></textarea>
+                        </mat-form-field>
+                    </ng-container>
+
+                    <!-- VOLUNTEER -->
+                    <ng-container *ngIf="role === 'volunteer'">
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Full Name</mat-label>
+                            <input matInput formControlName="fullName">
+                        </mat-form-field>
+                        <div class="row">
+                            <mat-form-field appearance="outline" class="half">
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="email">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="half">
+                                <mat-label>Phone</mat-label>
+                                <input matInput formControlName="phone">
+                            </mat-form-field>
+                        </div>
+                    </ng-container>
+
+                    <!-- VICTIM -->
+                    <ng-container *ngIf="role === 'victim'">
+                        <div class="readonly-banner">
+                            <mat-icon>lock</mat-icon> Name is verified and cannot be changed.
+                        </div>
+                        <mat-form-field appearance="outline" class="w-full disabled-look">
+                            <mat-label>Full Name</mat-label>
+                            <input matInput formControlName="fullName">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Current Contact Phone</mat-label>
+                            <input matInput formControlName="phone" placeholder="+92...">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Current Location / Temporary Address</mat-label>
+                            <textarea matInput formControlName="address" rows="2"></textarea>
+                        </mat-form-field>
+                    </ng-container>
+                </div>
+            </mat-tab>
+
+            <!-- TAB 2: Operational / Skills (Role Specific) -->
+            <mat-tab label="Operations & Details" *ngIf="role !== 'admin'">
+                <div class="tab-content">
+
+                    <!-- NGO Operations -->
+                    <ng-container *ngIf="role === 'ngo'">
+                        <div class="row">
+                            <mat-form-field appearance="outline" class="half">
+                                <mat-label>Service Category</mat-label>
+                                <mat-select formControlName="serviceCategory">
+                                    <mat-option *ngFor="let cat of serviceCategories" [value]="cat">{{cat}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="half">
+                                <mat-label>Daily Capacity (Pax)</mat-label>
+                                <input matInput type="number" formControlName="maxCapacity">
+                            </mat-form-field>
+                        </div>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Emergency Contact Person</mat-label>
+                            <input matInput formControlName="emergencyContact">
+                        </mat-form-field>
+
+                        <div class="readonly-section">
+                            <h4>System Info (Read-Only)</h4>
+                            <p><strong>Approval Status:</strong> <span class="badge success">Verified</span></p>
+                            <p><strong>Assigned Regions:</strong> Sector F-10, Blue Area</p>
+                        </div>
+                    </ng-container>
+
+                    <!-- VOLUNTEER Skills -->
+                    <ng-container *ngIf="role === 'volunteer'">
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Availability Status</mat-label>
+                            <mat-select formControlName="availability">
+                                <mat-option value="Active">Active - Ready to Serve</mat-option>
+                                <mat-option value="Inactive">Temporarily Unavailable</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Areas of Expertise</mat-label>
+                            <mat-select formControlName="expertise" multiple>
+                                <mat-option *ngFor="let skill of expertiseOptions"
+                                    [value]="skill">{{skill}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <div class="readonly-section">
+                            <h4>Assignments (Read-Only)</h4>
+                            <p>You cannot self-assign tasks. Please check the Dashboard for assignments from Admin/NGO.
+                            </p>
+                        </div>
+                    </ng-container>
+
+                    <!-- VICTIM Family -->
+                    <ng-container *ngIf="role === 'victim'">
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Family Members</mat-label>
+                            <input matInput type="number" formControlName="familySize">
+                        </mat-form-field>
+
+                        <!-- Simplified handling for special needs array for now -->
+                        <div class="readonly-section">
+                            <h4>Aid History (Read-Only)</h4>
+                            <p>Your aid reception history is maintained by the system for integrity.</p>
+                        </div>
+                    </ng-container>
+                </div>
+            </mat-tab>
+
+            <!-- TAB 3: Security -->
+            <mat-tab label="Security">
+                <div class="tab-content">
+                    <div class="warning-box">
+                        <mat-icon>security</mat-icon>
+                        <p>Changing your password will require you to log in again on all devices.</p>
+                    </div>
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Current Password</mat-label>
+                        <input matInput type="password" formControlName="currentPassword">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>New Password</mat-label>
+                        <input matInput type="password" formControlName="newPassword">
+                    </mat-form-field>
+
+                    <button mat-stroked-button color="warn" type="button" class="w-full mt-4">
+                        Logout from all other sessions
+                    </button>
+                </div>
+            </mat-tab>
+
+        </mat-tab-group>
+
+        <div class="dialog-actions">
+            <button mat-button type="button" (click)="close()">Cancel</button>
+            <button mat-flat-button color="primary" type="submit" [disabled]="profileForm.invalid">Save Changes</button>
+        </div>
+    </form>
+</div>

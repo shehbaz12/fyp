@@ -1,0 +1,24 @@
+<div class="py-20 bg-slate-50 text-slate-900 relative z-20" id="features">
+    <div class="container mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-blue-900">System Features</h2>
+            <p class="text-lg text-slate-600">Comprehensive tools for effective disaster management</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div *ngFor="let feat of features"
+                class="bg-white border border-slate-200 p-8 rounded-xl shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-300 flex gap-6 items-start group">
+
+                <div
+                    class="p-3 bg-blue-50 rounded-lg text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <mat-icon>{{feat.icon}}</mat-icon>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">{{feat.title}}</h3>
+                    <p class="text-slate-600 leading-relaxed">{{feat.desc}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

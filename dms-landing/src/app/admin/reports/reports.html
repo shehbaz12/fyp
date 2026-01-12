@@ -1,0 +1,95 @@
+<div class="reports-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 class="page-title">Reports & Analytics</h1>
+        <p class="page-subtitle">Basic analytics and insights (Mock Data)</p>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="charts-grid">
+
+        <!-- Chart 1: Requests per Disaster -->
+        <mat-card class="chart-card">
+            <mat-card-header>
+                <mat-icon class="chart-icon">bar_chart</mat-icon>
+                <h3>Requests per Disaster</h3>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="bar-chart">
+                    <div *ngFor="let item of requestsPerDisaster" class="bar-item">
+                        <div class="bar-label">{{ item.name }}</div>
+                        <div class="bar-container">
+                            <div class="bar-fill"
+                                [style.width.%]="getBarWidth(item.value, getMaxValue(requestsPerDisaster))">
+                            </div>
+                        </div>
+                        <div class="bar-value">{{ item.value }}</div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Chart 2: Regions Covered per NGO -->
+        <mat-card class="chart-card">
+            <mat-card-header>
+                <mat-icon class="chart-icon">pie_chart</mat-icon>
+                <h3>Regions Covered per NGO</h3>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="bar-chart">
+                    <div *ngFor="let item of regionsCoveredPerNGO" class="bar-item">
+                        <div class="bar-label">{{ item.name }}</div>
+                        <div class="bar-container">
+                            <div class="bar-fill ngo-bar"
+                                [style.width.%]="getBarWidth(item.value, getMaxValue(regionsCoveredPerNGO))">
+                            </div>
+                        </div>
+                        <div class="bar-value">{{ item.value }}</div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Chart 3: Aid Delivered vs Pending -->
+        <mat-card class="chart-card">
+            <mat-card-header>
+                <mat-icon class="chart-icon">donut_large</mat-icon>
+                <h3>Aid Delivered vs Pending</h3>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="progress-chart">
+                    <div class="progress-ring">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" class="progress-bg"></circle>
+                            <circle cx="50" cy="50" r="40" class="progress-fill"
+                                [style.stroke-dashoffset]="251 - (251 * aidDelivered.delivered / 100)">
+                            </circle>
+                        </svg>
+                        <div class="progress-text">
+                            <span class="progress-value">{{ aidDelivered.delivered }}%</span>
+                            <span class="progress-label">Delivered</span>
+                        </div>
+                    </div>
+                    <div class="progress-legend">
+                        <div class="legend-item">
+                            <div class="legend-color delivered"></div>
+                            <span>Delivered: {{ aidDelivered.delivered }}%</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color pending"></div>
+                            <span>Pending: {{ aidDelivered.pending }}%</span>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+
+    <!-- Info Note -->
+    <div class="info-note">
+        <mat-icon>info</mat-icon>
+        <p>These charts display mock data for demonstration purposes. In production, this would connect to real
+            analytics data.</p>
+    </div>
+</div>

@@ -1,0 +1,138 @@
+.notifications-container {
+    padding: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+}
+
+.notifications-card {
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px 24px;
+    gap: 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item:hover {
+    background: #f8f9fa;
+}
+
+.notification-item.unread {
+    background: #f0f7ff;
+}
+
+.notification-item.unread:hover {
+    background: #eef6fc;
+}
+
+.icon-container {
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-container.error {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.icon-container.warning {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.icon-container.info {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.icon-container.success {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 1rem;
+}
+
+.time {
+    font-size: 0.875rem;
+    color: #94a3b8;
+}
+
+.message {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.status-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #3b82f6;
+}
+
+.empty-state {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    color: #94a3b8;
+}
+
+.empty-state mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+}

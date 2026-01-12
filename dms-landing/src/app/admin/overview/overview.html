@@ -1,0 +1,65 @@
+<div class="overview-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 class="page-title">Admin Dashboard</h1>
+        <p class="page-subtitle">System Health & Overview</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+        <mat-icon class="loading-icon">hourglass_empty</mat-icon>
+        <p>Loading system statistics...</p>
+    </div>
+
+    <!-- Stat Cards Grid -->
+    <div *ngIf="!loading" class="stat-cards-grid">
+        <mat-card *ngFor="let card of statCards" class="stat-card" (click)="navigateToDetail(card.route)">
+            <div class="card-content">
+                <!-- Icon Section -->
+                <div class="icon-section" [ngClass]="card.iconColor">
+                    <mat-icon class="stat-icon">{{ card.icon }}</mat-icon>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="stats-section">
+                    <p class="stat-title">{{ card.title }}</p>
+                    <h2 class="stat-value">{{ card.value }}</h2>
+
+                    <!-- Growth Indicator -->
+                    <div class="growth-indicator" *ngIf="card.growth !== 0" [ngClass]="getGrowthColor(card.growth)">
+                        <mat-icon class="growth-icon">{{ getGrowthIcon(card.growth) }}</mat-icon>
+                        <span class="growth-text">{{ card.growth > 0 ? '+' : '' }}{{ card.growth }}%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hover Effect -->
+            <div class="card-hover-overlay">
+                <mat-icon>arrow_forward</mat-icon>
+            </div>
+        </mat-card>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div *ngIf="!loading" class="quick-actions-section">
+        <h2 class="section-title">Quick Actions</h2>
+        <div class="action-buttons">
+            <button mat-raised-button color="primary" routerLink="/dashboard/admin/region-assignments">
+                <mat-icon>assignment</mat-icon>
+                Assign Region
+            </button>
+            <button mat-raised-button routerLink="/dashboard/admin/organizations">
+                <mat-icon>business</mat-icon>
+                Review NGOs
+            </button>
+            <button mat-raised-button routerLink="/dashboard/admin/users">
+                <mat-icon>people</mat-icon>
+                Manage Users
+            </button>
+            <button mat-raised-button routerLink="/dashboard/admin/activity-log">
+                <mat-icon>history</mat-icon>
+                View Activity
+            </button>
+        </div>
+    </div>
+</div>

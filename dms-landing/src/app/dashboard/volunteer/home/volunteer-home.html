@@ -1,0 +1,105 @@
+<div class="home-container">
+    <!-- Header / Welcome -->
+    <div class="page-header">
+        <div>
+            <h1>Volunteer Dashboard</h1>
+            <p class="subtitle">Ready to serve? Check your tasks below.</p>
+        </div>
+        <div class="check-in-box">
+            <span class="status-label">
+                STATUS:
+                <strong [class.active]="isCheckedIn$ | async" [class.inactive]="!(isCheckedIn$ | async)">
+                    {{ (isCheckedIn$ | async) ? 'ON SITE' : 'OFF DUTY' }}
+                </strong>
+            </span>
+            <button mat-flat-button [color]="(isCheckedIn$ | async) ? 'warn' : 'primary'" (click)="toggleCheckIn()">
+                <mat-icon>{{ (isCheckedIn$ | async) ? 'logout' : 'login' }}</mat-icon>
+                {{ (isCheckedIn$ | async) ? 'Check Out' : 'Check In' }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="stats-grid" *ngIf="stats$ | async as stats">
+        <mat-card class="stat-card">
+            <div class="stat-icon purple"><mat-icon>timer</mat-icon></div>
+            <div class="stat-info">
+                <span class="value">{{ stats.hoursServed }}</span>
+                <span class="label">Hours Served</span>
+            </div>
+        </mat-card>
+        <mat-card class="stat-card">
+            <div class="stat-icon blue"><mat-icon>task_alt</mat-icon></div>
+            <div class="stat-info">
+                <span class="value">{{ stats.tasksCompleted }}</span>
+                <span class="label">Tasks Done</span>
+            </div>
+        </mat-card>
+        <mat-card class="stat-card">
+            <div class="stat-icon orange"><mat-icon>volunteer_activism</mat-icon></div>
+            <div class="stat-info">
+                <span class="value">{{ stats.distributionsAssisted }}</span>
+                <span class="label">Distributions</span>
+            </div>
+        </mat-card>
+        <mat-card class="stat-card">
+            <div class="stat-icon green"><mat-icon>local_fire_department</mat-icon></div>
+            <div class="stat-info">
+                <span class="value">{{ stats.currentStreak }} Days</span>
+                <span class="label">Activty Streak</span>
+            </div>
+        </mat-card>
+    </div>
+
+    <!-- Current Priority Task -->
+    <mat-card class="current-task-card" *ngIf="currentTask$ | async as task; else noTask">
+        <mat-card-header>
+            <div mat-card-avatar class="task-avatar">
+                <mat-icon>priority_high</mat-icon>
+            </div>
+            <mat-card-title>Current Priority: {{ task.title }}</mat-card-title>
+            <mat-card-subtitle>{{ task.assignedNGO }} • Due {{ task.deadline | date:'shortDate' }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p class="task-desc">{{ task.description }}</p>
+            <div class="task-meta">
+                <div class="meta-item">
+                    <mat-icon>location_on</mat-icon>
+                    {{ task.location }}
+                </div>
+                <div class="meta-item">
+                    <mat-icon>schedule</mat-icon>
+                    Start: {{ task.startDate | date:'shortTime' }}
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button (click)="viewAllTasks()">View Details</button>
+            <button mat-flat-button color="primary" *ngIf="task.status === 'Pending'" (click)="viewAllTasks()">Start
+                Task</button>
+            <button mat-flat-button color="accent" *ngIf="task.status === 'Active'" (click)="viewAllTasks()">Mark
+                Complete</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <ng-template #noTask>
+        <mat-card class="current-task-card empty">
+            <mat-card-content>
+                <mat-icon>check_circle_outline</mat-icon>
+                <h3>All Caught Up!</h3>
+                <p>No pending tasks assigned to you right now.</p>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
+
+    <!-- Map/Region Teaser (Clickable) -->
+    <mat-card class="region-teaser" routerLink="/dashboard/volunteer/region">
+        <div class="teaser-content">
+            <div class="text">
+                <h3>Assigned Region: Sector F-10</h3>
+                <p>Click to view reporting point and supervisor contact.</p>
+            </div>
+            <mat-icon class="arrow">arrow_forward</mat-icon>
+        </div>
+    </mat-card>
+</div>

@@ -1,0 +1,243 @@
+.profile-container {
+    max-width: 800px;
+    margin: 24px auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Card General Styles */
+.profile-card,
+.activity-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.profile-card {
+    padding: 32px;
+}
+
+/* Profile Header */
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.avatar-large {
+    background-color: #eff6ff;
+    color: #3b82f6;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.avatar-large mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+}
+
+.header-info h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.role-badge {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 12px;
+    background-color: #f1f5f9;
+    color: #64748b;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.header-info+button {
+    margin-top: 16px;
+}
+
+/* Profile Details Grid */
+.profile-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-item .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.detail-item .value {
+    font-size: 1rem;
+    color: #334155;
+    font-weight: 500;
+}
+
+/* Victim Specific Styles */
+.victim-card-section {
+    margin-top: 32px;
+}
+
+.qr-container {
+    margin: 24px 0;
+    text-align: center;
+}
+
+.qr-placeholder {
+    width: 160px;
+    height: 160px;
+    background: #fff;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #1e293b;
+}
+
+.qr-placeholder mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+}
+
+.qr-hint {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 8px;
+}
+
+.family-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 24px;
+}
+
+.stat-box {
+    text-align: center;
+}
+
+.stat-box .val {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.stat-box .lbl {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.text-warn {
+    color: #d97706;
+}
+
+.special-needs-list {
+    text-align: center;
+}
+
+.chips {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.chip {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Activity Section */
+.activity-card {
+    padding: 0;
+}
+
+.activity-card mat-card-header {
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.activity-card mat-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.activity-list {
+    padding: 16px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.activity-item:hover {
+    background: #f1f5f9;
+}
+
+.activity-item mat-icon {
+    color: #94a3b8;
+}
+
+.act-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.act-details {
+    font-weight: 500;
+    color: #334155;
+}
+
+.act-time {
+    color: #94a3b8;
+    font-size: 0.85rem;
+}

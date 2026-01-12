@@ -1,0 +1,64 @@
+.volunteers-page {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-header h1 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin: 0;
+}
+
+.table-card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.volunteer-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: #94a3b8;
+}
+
+.name {
+    font-weight: 500;
+}
+
+.current-task {
+    font-size: 0.875rem;
+    color: #475569;
+}
+
+.available {
+    background: #dcfce7 !important;
+    color: #16a34a !important;
+}
+
+.assigned {
+    background: #e0f2fe !important;
+    color: #0284c7 !important;
+}
+
+.offline {
+    background: #f1f5f9 !important;
+    color: #64748b !important;
+}

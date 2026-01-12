@@ -1,0 +1,156 @@
+<div class="scan-page">
+    <div class="page-header">
+        <h1>Scan & Distribute</h1>
+    </div>
+
+    <mat-stepper [linear]="true" #stepper class="stepper-card">
+        <!-- Step 1: Identify Victim -->
+        <mat-step [stepControl]="verificationForm">
+            <ng-template matStepLabel>Verify Victim</ng-template>
+            <form [formGroup]="verificationForm" class="step-form">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Select Region</mat-label>
+                    <mat-select formControlName="region">
+                        <mat-option *ngFor="let region of regions$ | async" [value]="region.id">
+                            {{ region.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div class="scan-section">
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>Victim ID / CNIC</mat-label>
+                        <input matInput formControlName="victimId" placeholder="Enter ID manually">
+                    </mat-form-field>
+                    <span class="or-divider">OR</span>
+                    <button mat-raised-button color="accent" (click)="simulateScan()" [disabled]="isScanning">
+                        <mat-icon>qr_code_scanner</mat-icon>
+                        {{ isScanning ? 'Scanning...' : 'Scan QR' }}
+                    </button>
+                </div>
+
+                <div class="victim-profile" *ngIf="victimDetails">
+                    <mat-icon class="profile-icon">account_circle</mat-icon>
+                    <div class="info">
+                        <h3>{{ victimDetails.name }}</h3>
+                        <p>Status: <span class="badge eligible">Eligible</span></p>
+                        <p class="text-sm">Last Aid: {{ victimDetails.lastAid }}</p>
+                    </div>
+                </div>
+
+                <div class="actions-row">
+                    <button mat-button matStepperNext [disabled]="!victimDetails">Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <!-- Step 2: Select Items -->
+        <mat-step [stepControl]="itemsForm">
+            <ng-template matStepLabel>Select Aid Items</ng-template>
+            <form [formGroup]="itemsForm" class="step-form">
+
+                <!-- Add Items Section -->
+                <div class="add-items-container">
+                    <!-- Inventory Select -->
+                    <div class="add-row">
+                        <mat-form-field appearance="outline" class="flex-1">
+                            <mat-label>Select from Inventory</mat-label>
+                            <mat-select [(ngModel)]="selectedInventoryItem" [ngModelOptions]="{standalone: true}">
+                                <mat-option *ngFor="let item of inventory$ | async" [value]="item.name"
+                                    [disabled]="item.quantity === 0">
+                                    {{ item.name }} ({{ item.quantity }} left)
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <button mat-flat-button color="primary" (click)="addInventoryItem()"
+                            [disabled]="!selectedInventoryItem">
+                            <mat-icon>add</mat-icon> Add
+                        </button>
+                    </div>
+
+                    <!-- Manual Entry -->
+                    <div class="add-row">
+                        <mat-form-field appearance="outline" class="flex-1">
+                            <mat-label>Or Enter Manual Item</mat-label>
+                            <input matInput [(ngModel)]="manualItemName" [ngModelOptions]="{standalone: true}"
+                                placeholder="e.g. Cash, Special Meds">
+                        </mat-form-field>
+                        <button mat-stroked-button color="accent" (click)="addManualItem()"
+                            [disabled]="!manualItemName">
+                            Add Manual
+                        </button>
+                    </div>
+                </div>
+
+                <mat-divider class="my-3"></mat-divider>
+
+                <!-- List of Added Items -->
+                <div class="selected-items-list" formArrayName="items">
+                    <div class="item-row" *ngFor="let control of itemsArray.controls; let i = index"
+                        [formGroupName]="i">
+                        <div class="item-info">
+                            <span class="item-name">{{ control.get('name').value }}</span>
+                            <span class="manual-badge" *ngIf="control.get('isManual').value">Manual</span>
+                        </div>
+
+                        <mat-form-field appearance="outline" class="qty-input">
+                            <mat-label>Qty</mat-label>
+                            <input matInput type="number" formControlName="quantity" min="1">
+                        </mat-form-field>
+
+                        <button mat-icon-button color="warn" (click)="removeItem(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+
+                    <div *ngIf="itemsArray.controls.length === 0" class="empty-list">
+                        No items added yet.
+                    </div>
+                </div>
+
+                <div class="actions-row">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext
+                        [disabled]="itemsForm.invalid || itemsArray.controls.length === 0">Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <!-- Step 3: Confirm -->
+        <mat-step [stepControl]="confirmationForm">
+            <ng-template matStepLabel>Confirm Distribution</ng-template>
+            <form [formGroup]="confirmationForm" class="step-form">
+                <h3>Summary</h3>
+                <div class="summary-box">
+                    <p><strong>Victim:</strong> {{ victimDetails?.name }}</p>
+                    <p><strong>Region:</strong> {{ verificationForm.get('region')?.value }}</p>
+                    <div class="summary-items">
+                        <strong>Items:</strong>
+                        <ul>
+                            <li *ngFor="let item of itemsArray.controls">
+                                {{ item.value.quantity }}x {{ item.value.name }}
+                                <span *ngIf="item.value.isManual" class="text-xs text-gray-500">(Manual)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Distributed By (Volunteer)</mat-label>
+                    <mat-select formControlName="volunteer">
+                        <mat-option *ngFor="let vol of volunteers$ | async" [value]="vol.name">
+                            {{ vol.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div class="actions-row">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-flat-button color="primary" (click)="confirmDistribution()">Confirm
+                        Distribution</button>
+                </div>
+            </form>
+        </mat-step>
+    </mat-stepper>
+</div>

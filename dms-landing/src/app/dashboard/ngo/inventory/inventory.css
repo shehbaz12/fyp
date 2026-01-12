@@ -1,0 +1,61 @@
+.inventory-page {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin: 0;
+}
+
+.table-card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.item-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.category-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.food {
+    background: #16a34a;
+}
+
+.medical {
+    background: #dc2626;
+}
+
+.shelter {
+    background: #ea580c;
+}
+
+.clothing {
+    background: #2563eb;
+}
+
+.text-red-500 {
+    color: #dc2626;
+    font-weight: 700;
+}

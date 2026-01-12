@@ -1,0 +1,40 @@
+<div class="log-page">
+    <div class="page-header">
+        <h1>Activity Log</h1>
+        <p class="subtitle">Your meaningful impact over time.</p>
+    </div>
+
+    <!-- Impact Cards -->
+    <div class="stats-row" *ngIf="stats$ | async as stats">
+        <div class="impact-card">
+            <span class="number">{{ stats.hoursServed }}</span>
+            <span class="label">Hours Contributed</span>
+            <mat-progress-bar mode="determinate" [value]="(stats.hoursServed / 100) * 100"></mat-progress-bar>
+        </div>
+        <div class="impact-card">
+            <span class="number">{{ stats.tasksCompleted }}</span>
+            <span class="label">Tasks Completed</span>
+        </div>
+        <div class="impact-card">
+            <span class="number">{{ stats.distributionsAssisted }}</span>
+            <span class="label">Distributions</span>
+        </div>
+    </div>
+
+    <!-- History List -->
+    <mat-card class="history-list-card">
+        <h3>Task History</h3>
+        <mat-list>
+            <mat-list-item *ngFor="let task of completedTasks$ | async">
+                <mat-icon matListItemIcon class="text-green">check_circle</mat-icon>
+                <div matListItemTitle>{{ task.title }}</div>
+                <div matListItemLine>{{ task.description }}</div>
+                <div matListItemMeta>{{ task.deadline | date:'shortDate' }}</div>
+            </mat-list-item>
+
+            <div *ngIf="(completedTasks$ | async)?.length === 0" class="empty-msg">
+                No completed tasks yet. Keep going!
+            </div>
+        </mat-list>
+    </mat-card>
+</div>

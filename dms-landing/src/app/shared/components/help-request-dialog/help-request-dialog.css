@@ -1,0 +1,146 @@
+/* Dialog Layout */
+.dialog-container {
+    padding: 0.5rem;
+    max-width: 100%;
+}
+
+.dialog-header {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.dialog-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 0.5rem 0;
+}
+
+.dialog-subtitle {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Form Layout */
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Dynamic Items */
+.items-section {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid #eee;
+    margin-bottom: 1rem;
+}
+
+.section-label {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+}
+
+.item-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    /* Align top for inputs */
+    margin-bottom: 0.5rem;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dashed-btn {
+    border: 1px dashed #cbd5e1 !important;
+    color: #475569 !important;
+    border-radius: 8px !important;
+    padding: 1.5rem !important;
+    /* Taller button */
+    font-weight: 500 !important;
+}
+
+.dashed-btn:hover {
+    background-color: #e2e8f0 !important;
+    border-color: #94a3b8 !important;
+    color: #1e293b !important;
+}
+
+
+/* Buttons */
+.submit-btn {
+    background-color: #007bff !important;
+    color: white !important;
+    border-radius: 12px !important;
+    padding: 1.2rem 2rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px;
+}
+
+.submit-btn:hover:not([disabled]) {
+    background-color: #0069d9 !important;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.cancel-btn {
+    color: #6c757d !important;
+    font-weight: 500 !important;
+}
+
+.cancel-btn:hover {
+    background-color: #f8f9fa !important;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+
+    /* Target Angular Material Actions */
+    mat-dialog-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .submit-btn,
+    .cancel-btn {
+        width: 100%;
+        margin: 0 !important;
+        /* Override material margins if any */
+    }
+
+    .item-row {
+        flex-direction: column;
+        background: white;
+        padding: 0.8rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .item-row mat-form-field {
+        width: 100%;
+    }
+}

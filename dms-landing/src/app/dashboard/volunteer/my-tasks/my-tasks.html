@@ -1,0 +1,101 @@
+<div class="tasks-page">
+    <div class="page-header">
+        <h1>My Assignments</h1>
+        <div class="header-actions">
+            <!-- Filters happen via Tabs -->
+        </div>
+    </div>
+
+    <mat-tab-group animationDuration="0ms" class="tasks-tabs">
+
+        <!-- Tab 1: Active (Focus) -->
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="tab-icon">play_circle</mat-icon>
+                Active
+            </ng-template>
+            <div class="tasks-list">
+                <div *ngIf="(activeTasks$ | async)?.length === 0" class="empty-state">
+                    <p>No task currently in progress.</p>
+                    <button mat-button color="primary">Check Pending Tasks</button>
+                </div>
+
+                <mat-card *ngFor="let task of activeTasks$ | async" class="task-card active-border">
+                    <div class="status-strip">IN PROGRESS</div>
+                    <mat-card-header>
+                        <mat-card-title>{{ task.title }}</mat-card-title>
+                        <mat-card-subtitle>{{ task.assignedNGO }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>{{ task.description }}</p>
+                        <div class="meta-row">
+                            <span><mat-icon>location_on</mat-icon> {{ task.location }}</span>
+                            <span class="text-red-600"><mat-icon>timer</mat-icon> Due: {{ task.deadline |
+                                date:'shortTime' }}</span>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions align="end">
+                        <button mat-flat-button color="accent" (click)="completeTask(task.id)">
+                            <mat-icon>check</mat-icon> Mark Completed
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+        <!-- Tab 2: Pending -->
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="tab-icon">schedule</mat-icon>
+                Pending
+            </ng-template>
+            <div class="tasks-list">
+                <mat-card *ngFor="let task of pendingTasks$ | async" class="task-card">
+                    <mat-card-header>
+                        <mat-card-title>{{ task.title }}</mat-card-title>
+                        <mat-card-subtitle>Starts: {{ task.startDate | date:'shortDate' }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>{{ task.description }}</p>
+                        <div class="meta-row">
+                            <span><mat-icon>business</mat-icon> {{ task.assignedNGO }}</span>
+                            <span><mat-icon>location_on</mat-icon> {{ task.location }}</span>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions align="end">
+                        <button mat-stroked-button color="primary" (click)="startTask(task.id)">
+                            Start Task
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+
+                <div *ngIf="(pendingTasks$ | async)?.length === 0" class="empty-state">
+                    <p>No upcomming tasks.</p>
+                </div>
+            </div>
+        </mat-tab>
+
+        <!-- Tab 3: Completed -->
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon class="tab-icon">check_circle</mat-icon>
+                Completed
+            </ng-template>
+            <div class="tasks-list">
+                <mat-card *ngFor="let task of completedTasks$ | async" class="task-card completed">
+                    <mat-card-header>
+                        <mat-card-title class="strike-through">{{ task.title }}</mat-card-title>
+                        <mat-card-subtitle>Finished on {{ task.deadline | date:'shortDate' }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p class="text-muted">{{ task.description }}</p>
+                    </mat-card-content>
+                    <div class="completed-stamp">
+                        <mat-icon>verified</mat-icon>
+                    </div>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+    </mat-tab-group>
+</div>

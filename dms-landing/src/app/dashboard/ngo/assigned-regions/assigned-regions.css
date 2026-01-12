@@ -1,0 +1,128 @@
+.regions-page {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    margin-bottom: 32px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.subtitle {
+    margin-top: 8px;
+    color: #64748b;
+}
+
+.regions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.region-card {
+    border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.region-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px;
+    padding-bottom: 0;
+}
+
+.icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-box mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+/* Disaster Types */
+.flood {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.earthquake {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.fire {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
+.status-chip {
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.status-chip.active {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+mat-card-header {
+    margin-bottom: 16px;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    margin-bottom: 16px;
+}
+
+.detail-row mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.resources-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #94a3b8;
+}
+
+mat-card-actions {
+    padding: 16px !important;
+}
+
+mat-card-actions button {
+    width: 100%;
+}

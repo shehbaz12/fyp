@@ -1,0 +1,202 @@
+<div class="region-assignments-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="header-left">
+            <h1 class="page-title">Region Assignment</h1>
+            <p class="page-subtitle">Assign regions to NGOs for disaster relief (CORE FEATURE)</p>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+        <mat-icon class="loading-icon">hourglass_empty</mat-icon>
+        <p>Loading active disasters...</p>
+    </div>
+
+    <!-- Stepper -->
+    <mat-stepper *ngIf="!loading" linear #stepper class="assignment-stepper">
+
+        <!-- Step 1: Select Disaster -->
+        <mat-step [completed]="selectedDisaster !== null">
+            <ng-template matStepLabel>Select Active Disaster</ng-template>
+            <div class="step-content">
+                <h3>Choose a disaster to assign relief resources</h3>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Active Disaster</mat-label>
+                    <mat-select [(ngModel)]="selectedDisaster" (selectionChange)="onDisasterSelected()">
+                        <mat-option *ngFor="let disaster of activeDisasters" [value]="disaster">
+                            {{ disaster.name }} ({{ disaster.type | uppercase }} - {{ disaster.severity | uppercase }})
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div *ngIf="selectedDisaster" class="disaster-info">
+                    <mat-card>
+                        <mat-card-content>
+                            <h4>{{ selectedDisaster.name }}</h4>
+                            <p>{{ selectedDisaster.description }}</p>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <mat-icon>people</mat-icon>
+                                    <span>{{ selectedDisaster.affectedPopulation | number }} affected</span>
+                                </div>
+                                <div class="info-item">
+                                    <mat-icon>location_on</mat-icon>
+                                    <span>{{ selectedDisaster.affectedRegions.length }} regions</span>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+                <div class="step-actions">
+                    <button mat-raised-button color="primary" matStepperNext [disabled]="!selectedDisaster">
+                        Next: Select Region
+                    </button>
+                </div>
+            </div>
+        </mat-step>
+
+        <!-- Step 2: Select Region -->
+        <mat-step [completed]="selectedRegion !== ''">
+            <ng-template matStepLabel>Select Affected Region</ng-template>
+            <div class="step-content">
+                <h3>Choose which region to assign</h3>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Affected Region</mat-label>
+                    <mat-select [(ngModel)]="selectedRegion" (selectionChange)="onRegionSelected()">
+                        <mat-option *ngFor="let region of selectedDisaster?.affectedRegions" [value]="region">
+                            {{ region }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div *ngIf="selectedRegion" class="region-info">
+                    <mat-card>
+                        <mat-card-content>
+                            <h4>Resource Requirements for {{ selectedRegion }}</h4>
+                            <div class="requirements-grid">
+                                <div class="requirement-item">
+                                    <mat-icon class="req-icon food">restaurant</mat-icon>
+                                    <div class="req-details">
+                                        <span class="req-label">Food</span>
+                                        <span class="req-value">{{ resourceRequirements.food }} units</span>
+                                    </div>
+                                </div>
+                                <div class="requirement-item">
+                                    <mat-icon class="req-icon medical">medical_services</mat-icon>
+                                    <div class="req-details">
+                                        <span class="req-label">Medical</span>
+                                        <span class="req-value">{{ resourceRequirements.medical }} units</span>
+                                    </div>
+                                </div>
+                                <div class="requirement-item">
+                                    <mat-icon class="req-icon shelter">home</mat-icon>
+                                    <div class="req-details">
+                                        <span class="req-label">Shelter</span>
+                                        <span class="req-value">{{ resourceRequirements.shelter }} units</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="population-info">
+                                <mat-icon>people</mat-icon>
+                                <span>Estimated {{ affectedPopulation | number }} people affected in this region</span>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+                <div class="step-actions">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" matStepperNext [disabled]="!selectedRegion">
+                        Next: Select NGOs
+                    </button>
+                </div>
+            </div>
+        </mat-step>
+
+        <!-- Step 3: Select NGOs -->
+        <mat-step>
+            <ng-template matStepLabel>Assign to NGOs</ng-template>
+            <div class="step-content">
+                <h3>Select NGOs to assign ({{ selectedNGOs.length }} selected)</h3>
+
+                <div *ngIf="eligibleNGOs.length === 0" class="no-ngos">
+                    <mat-icon>info</mat-icon>
+                    <p>No eligible NGOs available. All organizations are at capacity or disabled.</p>
+                </div>
+
+                <div class="ngos-grid">
+                    <mat-card *ngFor="let ngo of eligibleNGOs" class="ngo-card" [class.selected]="isNGOSelected(ngo.id)"
+                        (click)="toggleNGOSelection(ngo.id)">
+                        <mat-card-content>
+                            <div class="ngo-header">
+                                <mat-checkbox [checked]="isNGOSelected(ngo.id)" (click)="$event.stopPropagation()"
+                                    (change)="toggleNGOSelection(ngo.id)">
+                                </mat-checkbox>
+                                <h4>{{ ngo.name }}</h4>
+                            </div>
+
+                            <div class="ngo-stats">
+                                <div class="stat">
+                                    <mat-icon>people</mat-icon>
+                                    <span>{{ ngo.capacity.volunteers }} volunteers</span>
+                                </div>
+                                <div class="stat">
+                                    <mat-icon>inventory_2</mat-icon>
+                                    <span>{{ ngo.capacity.resources.food + ngo.capacity.resources.medical +
+                                        ngo.capacity.resources.shelter }} resources</span>
+                                </div>
+                            </div>
+
+                            <div class="capacity-match">
+                                <div class="match-label">Capacity Match</div>
+                                <div class="match-bar">
+                                    <div class="match-fill" [style.width.%]="getCapacityMatch(ngo)"
+                                        [style.background-color]="getCapacityColor(getCapacityMatch(ngo))">
+                                    </div>
+                                </div>
+                                <div class="match-value">{{ getCapacityMatch(ngo) }}%</div>
+                            </div>
+
+                            <div class="workload-info">
+                                <span class="workload-label">Current Workload: {{ ngo.currentWorkload }}%</span>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+                <div *ngIf="selectedNGOs.length > 0" class="assignment-summary">
+                    <mat-card class="summary-card">
+                        <mat-card-content>
+                            <h4>Assignment Summary</h4>
+                            <div class="summary-item">
+                                <span>Selected NGOs:</span>
+                                <strong>{{ selectedNGOs.length }}</strong>
+                            </div>
+                            <div class="summary-item">
+                                <span>Total Coverage:</span>
+                                <strong [style.color]="getCapacityColor(getTotalSelectedCapacity())">
+                                    {{ getTotalSelectedCapacity() }}%
+                                </strong>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+                <div class="step-actions">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" (click)="assignRegion()"
+                        [disabled]="!canAssign() || assigning">
+                        <mat-icon *ngIf="!assigning">check_circle</mat-icon>
+                        <mat-icon *ngIf="assigning" class="spinning">hourglass_empty</mat-icon>
+                        {{ assigning ? 'Assigning...' : 'Confirm Assignment' }}
+                    </button>
+                </div>
+            </div>
+        </mat-step>
+
+    </mat-stepper>
+</div>
